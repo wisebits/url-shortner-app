@@ -1,0 +1,1 @@
+require_relative 'find_authenticated_user'
