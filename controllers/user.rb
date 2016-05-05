@@ -35,7 +35,7 @@ class UrlShortnerApp < Sinatra::Base
     end
   end
 
-  get '/register' do
+  get '/register/?' do
     slim(:register)
   end
 
@@ -49,13 +49,12 @@ class UrlShortnerApp < Sinatra::Base
 
     @new_user = RegisterNewUser.call(
       username: username, email: email, password: password)
-    
-    puts 'RESPONSE'
-    puts @new_user 
+
+    #puts @new_user
 
     #if password == password_confirm
       if @new_user
-        session[:current_user] = @new_user
+        session[:current_user] = @new_user 
         slim :home
       else
         slim :register
