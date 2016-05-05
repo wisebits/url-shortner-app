@@ -1,1 +1,2 @@
 require_relative 'find_authenticated_user'
+require_relative 'register_new_user'
