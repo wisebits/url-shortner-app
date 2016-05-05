@@ -7,7 +7,7 @@ class UrlShortnerApp < Sinatra::Base
   set :views, File.expand_path('../../views', __FILE__)
 
   before do
-    @current_account = session[:current_user]
+    @current_user = session[:current_user]
   end
 
   get '/' do
