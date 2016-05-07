@@ -34,8 +34,4 @@ class UrlShortnerApp < Sinatra::Base
       slim(:login)
     end
   end
-
-  get '/register' do
-    slim(:register)
-  end
 end

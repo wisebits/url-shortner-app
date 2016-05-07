@@ -2,11 +2,16 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.4.0)
+    bond (0.5.1)
+    concurrent-ruby (1.0.2)
+    config_env (0.1.2)
     daemons (1.2.3)
     domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     eventmachine (1.2.0.1)
     ffi (1.9.10)
+    hamster (3.0.0)
+      concurrent-ruby (~> 1.0)
     http (2.0.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -16,17 +21,41 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
+    jose (0.3.1)
+      hamster
     listen (3.1.1)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
+    mime-types (3.0)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0221)
+    pony (1.11)
+      mail (>= 2.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rake (11.1.2)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    rbnacl (3.3.0)
+      ffi
+    rbnacl-libsodium (1.0.10)
+      rbnacl (>= 3.0.1)
     rerun (0.11.0)
       listen (~> 3.0)
+    ripl (0.7.1)
+      bond (~> 0.5.1)
+    ripl-multi_line (0.3.1)
+      ripl (>= 0.3.6)
+    ripl-rack (0.2.1)
+      rack (>= 1.0)
+      rack-test (~> 0.6.2)
+      ripl (>= 0.7.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -40,6 +69,11 @@ GEM
       eventmachine (~> 1.0, >= 1.0.4)
       rack (~> 1.0)
     tilt (2.0.2)
+    tux (0.3.0)
+      ripl (>= 0.3.5)
+      ripl-multi_line (>= 0.2.4)
+      ripl-rack (>= 0.2.0)
+      sinatra (>= 1.2.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -48,11 +82,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  config_env
   http
+  jose
+  pony
+  rake
+  rbnacl-libsodium
   rerun
   sinatra
   slim
   thin
+  tux
 
 BUNDLED WITH
    1.11.2

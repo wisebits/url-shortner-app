@@ -1,3 +1,4 @@
 views/*.html
 *.codekit
 .bundle/
+config/config_env.rb
