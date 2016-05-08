@@ -34,34 +34,4 @@ class UrlShortnerApp < Sinatra::Base
       slim(:login)
     end
   end
-
-  get '/register' do
-    slim(:register)
-  end
-
-  post '/register' do
-    username = params[:username]
-    email = params[:email]
-    password = params[:password]
-    password_confirm = params[:password_confirm]
-
-    #check password here
-
-    @new_user = RegisterNewUser.call(
-      username: username, email: email, password: password)
-    
-    puts 'RESPONSE'
-    puts @new_user 
-
-    #if password == password_confirm
-      if @new_user
-        session[:current_user] = @new_user
-        slim :home
-      else
-        slim :register
-      end
-    #else
-      #slim :register # show message to user too
-    #end
-  end
 end

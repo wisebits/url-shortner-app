@@ -1,2 +1,3 @@
 require_relative 'find_authenticated_user'
-require_relative 'register_new_user'
+require_relative 'email_registration_verification'
+require_relative 'create_verified_user'
