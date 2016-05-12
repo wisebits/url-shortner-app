@@ -5,7 +5,7 @@ class EmailRegistrationVerification
     registration = {username: username, email: email}
     token_encrypted = SecureMessage.encrypt(registration)
 
-    Pony.email(to: registration[:email],
+    Pony.mail(to: registration[:email],
       subject: "Your User account is almost ready",
       html_body:  registration_email(token_encrypted))
   end
