@@ -15,6 +15,7 @@ class UrlShortnerApp < Sinatra::Base
 
     begin
       EmailRegistrationVerification.call(registration)
+      flash[:notice] = 'Please check your email and follow the link to verify your account'
       redirect '/'
     rescue => e
       puts "FAIL EMAIL: #{e}"
