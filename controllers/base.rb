@@ -2,7 +2,7 @@ require 'sinatra'
 
 # Basic class for UrlShortner Web Application
 class UrlShortnerApp < Sinatra::Base
-  use Rack::Session::Cookie, code: CookieEncoder.new, let_coder_handle_secure_encoding: true
+  use Rack::Session::Cookie, secret: ENV['MSG_KEY']
 
   set :views, File.expand_path('../../views', __FILE__)
 

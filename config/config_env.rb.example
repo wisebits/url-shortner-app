@@ -9,11 +9,11 @@ config_env :production do
   set 'MSG_KEY', '...'
 
   set 'API_HOST', 'http://wisebits-url-shortner.herokuapp.com/api/v1'
-  set 'APP_HOST', 'http://configshare.herokuapp.com'
+  set 'APP_HOST', 'http://url-shortner.herokuapp.com'
 end
 
 config_env do
-  set 'SENDGRID_DOMAIN', '...'
+  set 'SENDGRID_DOMAIN', ''
   set 'SENDGRID_USERNAME', '...'
   set 'SENDGRID_PASSWORD', '...'
 end
