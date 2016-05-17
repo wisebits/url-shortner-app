@@ -1,5 +1,5 @@
 require 'base64'
-require 'rbnacl/libsodium'
+require 'jose'
 
 # Utility class to encrypt and decrypt messages from this application
 #   - used for tokens: cookies, email

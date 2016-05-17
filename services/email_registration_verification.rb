@@ -17,8 +17,8 @@ class EmailRegistrationVerification
     verification_url = "#{ENV['APP_HOST']}/register/#{token}/verify"
 
     <<~END_EMAIL
-      <h1>Wise bits URL Shortner Registration Received</h1>
-      <p>Please '<a href="#{verification_url}">click here</a>' to validate your
+      <H1>Wisebits URL Shortner Registration Received<H1>
+      <p>Please <a href=\"#{verification_url}\">click here</a> to validate your
       email. You will be asked to set a password to activate your account.</p>
     END_EMAIL
   end
