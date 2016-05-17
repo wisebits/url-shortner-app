@@ -40,7 +40,6 @@ class UrlShortnerApp < Sinatra::Base
     end
 
     new_user = SecureMessage.decrypt(params[:token_secure])
-
     result = CreateVerifiedUser.call(
       username: new_user[:username],
       email: new_user[:email],
