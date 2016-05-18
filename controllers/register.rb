@@ -44,7 +44,7 @@ class UrlShortnerApp < Sinatra::Base
     result = CreateVerifiedUser.call(
       username: new_user[:username],
       email: new_user[:email],
-      password: params[:password])
+      password: passwords[:password])
 
     puts "RESULT: #{result}"
     result ? redirect('/login') : redirect('/register')
