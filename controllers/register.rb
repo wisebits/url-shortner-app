@@ -6,13 +6,21 @@ class UrlShortnerApp < Sinatra::Base
   end
 
   post '/register/?' do
+    registration = Registration.call(params)
+    if registration.failure?
+      flash[:error] = 'Please enter a valid username and email'
+      redirect 'register'
+      halt
+    end
+
     begin
-      EmailRegistrationVerification.call(
-        username: params[:username],
-        email: params[:email])
+      EmailRegistrationVerification.call(registration)
+      flash[:notice] = 'Please check your email and follow the link to verify your account'
       redirect '/'
     rescue => e
       puts "FAIL EMAIL: #{e}"
+      flash[:error] = 'Unable to send email verification -- please '\
+                      'check you have entered the right address'
       redirect '/register'
     end
   end
@@ -25,12 +33,14 @@ class UrlShortnerApp < Sinatra::Base
   end
 
   post '/register/:token_secure/verify' do
-    redirect "register/#{params[:token_secure]}/verify" unless 
-      (params[:password] == params[:password_confirm]) &&
-      !params[:password].empty
-    
-    new_user = SecureMessage.decrypt(params[:token_secure])
+    passwords = Passwords.call(params)
+    if passwords.failure?
+      flash[:error] = passwords.messages.values.join('; ')
+      redirect "/register/#{params[:token_secure]}/verify"
+      halt
+    end
 
+    new_user = SecureMessage.decrypt(params[:token_secure])
     result = CreateVerifiedUser.call(
       username: new_user[:username],
       email: new_user[:email],

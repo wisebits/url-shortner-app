@@ -7,16 +7,21 @@ class UrlShortnerApp < Sinatra::Base
   end
 
   post '/login/?' do
-    username = params[:username]
-    password = params[:password]
+    credentials = LoginCredentials.call(params)
+    if credentials.failure?
+      flash[:error] = 'Please enter both your username and password'
+      redirect '/login'
+      halt
+    end
 
-    @current_user = FindAuthenticatedUser.call(
-      username: username, password: password)
+    @current_user = FindAuthenticatedUser.call(credentials)
 
     if @current_user
-      session[:current_user] = @current_user
-      slim :home
+      session[:current_user] = SecureMessage.encrypt(@current_user)
+      flash[:notice] = "Welcome back #{@current_user['username']}!"
+      redirect '/'
     else
+      flash[:error] = 'Your username or password did not match our records.'
       slim :login
     end
   end
@@ -24,6 +29,7 @@ class UrlShortnerApp < Sinatra::Base
   get '/logout/?' do
     @current_user = nil
     session[:current_user] = nil
+    flash[:notice] = 'You have logged out. Please login again to use this site.'
     slim :login
   end
 

@@ -1,7 +1,13 @@
 doctype html
 html
   head
-    title Url Shortner
+    title Wisebits - URL Shortner
+    link rel='stylesheet' href='/style.css'
   body
-    == slim :nav
-    == yield
+    header
+      h1 Wisebits - URL Shortner
+    nav
+      == slim :nav
+    section
+      == slim :flash_bar
+      == yield
