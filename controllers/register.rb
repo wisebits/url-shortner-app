@@ -29,7 +29,7 @@ class UrlShortnerApp < Sinatra::Base
     @token_secure = params[:token_secure]
     @new_user = SecureMessage.decrypt(@token_secure)
 
-    slim "register_confirm"
+    slim :register_confirm
   end
 
   post '/register/:token_secure/verify' do
