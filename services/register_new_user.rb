@@ -10,3 +10,4 @@ class RegisterNewUser
     response.code == 200 ? JSON.parse(response) : nil
   end
 end
+

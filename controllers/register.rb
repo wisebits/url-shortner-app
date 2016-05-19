@@ -46,7 +46,9 @@ class UrlShortnerApp < Sinatra::Base
       email: new_user[:email],
       password: passwords[:password])
 
+    puts "<--------------------------------------------------------->"
     puts "RESULT: #{result}"
+    puts "<--------------------------------------------------------->"
     result ? redirect('/login') : redirect('/register')
   end
 end
