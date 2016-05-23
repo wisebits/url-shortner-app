@@ -40,17 +40,19 @@ class UrlShortnerApp < Sinatra::Base
       halt
     end
 
-    puts "<--------------------------------------------------------->"
-    puts "RESULT: #{params[:token_secure]}"
-    puts "<--------------------------------------------------------->"
-
     new_user = SecureMessage.decrypt(params[:token_secure])  
+
+    puts "<--------------------------------------------------------->"
+    puts "username: #{new_user[:username]}"
+    puts "email: #{new_user[:email]}"
+    puts "password #{passwords[:password]}"
+    puts "<--------------------------------------------------------->"
 
     result = CreateVerifiedUser.call(
       username: new_user[:username],
       email: new_user[:email],
       password: passwords[:password])
     
-    result ? redirect('/login') : redirect('/register')
+    result ? redirect('/login') : redirect('/login')
   end
 end
