@@ -6,6 +6,7 @@ gem 'thin'
 gem 'slim'
 gem 'rack-flash3'
 gem 'rack-ssl-enforcer'
+gem 'tux'
 
 gem 'http'
 gem 'jose'
