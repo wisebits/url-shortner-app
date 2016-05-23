@@ -43,8 +43,8 @@ class UrlShortnerApp < Sinatra::Base
     new_user = SecureMessage.decrypt(params[:token_secure])  
 
     result = CreateVerifiedUser.call(
-      username: new_user[:username],
-      email: new_user[:email],
+      username: new_user['username'],
+      email: new_user['email'],
       password: passwords[:password])
     
     result ? redirect('/login') : redirect('/register')
