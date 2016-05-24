@@ -2,6 +2,15 @@ require 'sinatra'
 
 # Base class for Url Shortner Web Application
 class UrlShortnerApp < Sinatra::Base
+  get '/users/:username' do
+    if @current_user && @current_user['username'] == params[:username]
+      @auth_token = session[:auth_token]
+      slim(:user)
+    else
+      slim(:login)
+    end
+  end
+
   get '/login/?' do
     slim :login
   end
@@ -14,9 +23,11 @@ class UrlShortnerApp < Sinatra::Base
       halt
     end
 
-    @current_user = FindAuthenticatedUser.call(credentials)
+    auth_token = FindAuthenticatedUser.call(credentials)
 
-    if @current_user
+    if auth_token
+      @current_user = auth_token['user']
+      session[:auth_token] = auth_token['auth_token']
       session[:current_user] = SecureMessage.encrypt(@current_user)
       flash[:notice] = "Welcome back #{@current_user['username']}!"
       redirect '/'
@@ -31,13 +42,5 @@ class UrlShortnerApp < Sinatra::Base
     session[:current_user] = nil
     flash[:notice] = 'You have logged out. Please login again to use this site.'
     slim :login
-  end
-
-  get '/user/:username' do
-    if @current_user && @current_user['username'] == params[:username]
-      slim(:user)
-    else
-      slim(:login)
-    end
-  end
+  end  
 end
