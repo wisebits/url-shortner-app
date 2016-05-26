@@ -23,11 +23,12 @@ class UrlShortnerApp < Sinatra::Base
       halt
     end
 
-    auth_token = FindAuthenticatedUser.call(credentials)
+    auth_user = FindAuthenticatedUser.call(credentials)
 
-    if auth_token
-      @current_user = auth_token['user']
-      session[:auth_token] = auth_token['auth_token']
+    
+    if auth_user
+      @current_user = auth_user['user']
+      session[:auth_token] = auth_user['auth_token']
       session[:current_user] = SecureMessage.encrypt(@current_user)
       flash[:notice] = "Welcome back #{@current_user['username']}!"
       redirect '/'

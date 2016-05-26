@@ -2,7 +2,7 @@ require 'sinatra'
 
 # Base class for UrlShortner Web Application
 class UrlShortnerApp < Sinatra::Base
-  get '/users/:username/projects' do
+  get '/users/:username/urls' do
     if @current_user && @current_user['username'] == params[:username]
       @urls = GetAllUrls.call(current_user: @current_user,
         auth_token: session[:auth_token])

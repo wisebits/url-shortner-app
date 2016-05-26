@@ -1,9 +1,10 @@
 p 
   form method='post' action='/login' id='form-login'
-    label for='username' Username: 
-    input type='text' name='username' id='input-username'
-    br
-    label for='password' Password: 
-    input type='password' name='password' id='input-password'
-    br
-    input type='submit' id='button-login' value='login'
+    div class="form-group"
+      label for='input-username' Username
+      input type='text' name='username' id='input-username' class="form-control"
+    div class="form-group"
+      label for='input-password' Password
+      input type='password' name='password' id='input-password' class="form-control"
+    
+    button type='submit' id='button-login' value='login' class="btn btn-primary" login
