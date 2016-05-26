@@ -1,0 +1,16 @@
+h1 Urls
+table class="table"
+  thead
+    tr
+      th Url name
+      th Full URL
+      th Short Url
+  tbody
+    - @urls.each do |url|
+      tr
+        td 
+          a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
+          td 
+            a href="#{url[:full_url]}" #{url[:full_url]}
+            td
+              = "#{url[:short_url]}" 
