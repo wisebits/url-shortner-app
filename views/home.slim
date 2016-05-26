@@ -1,5 +1,7 @@
 h1 Welcome to Url Shortner
 p This app will allow you to securely shorten and share URLs. More coming soon from the Wisebits team...
 
-p 
-  a href='/login' login to start!
+- if @current_user
+  p Soon you will have more options to play around with
+-else
+  p To begin making secure short urls, please click the "register" link on the navigation bar

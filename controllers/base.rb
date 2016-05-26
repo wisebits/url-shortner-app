@@ -6,7 +6,7 @@ require 'rack/ssl-enforcer'
 class UrlShortnerApp < Sinatra::Base
   enable :logging
 
-  use Rack::Session::Cookie, secret: ENV['MSG_KEY']
+  use Rack::Session::Cookie, secret: ENV['MSG_KEY'], expire_after: 60 * 60 * 24 * 7
   use Rack::Flash
 
   configure :production do

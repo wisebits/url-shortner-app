@@ -1,9 +1,10 @@
 h2 Create An Account
 form action='/register' method='post' id='user-form'
-  label for='username' Username: 
-  input type='text' name='username' id='username_input'
-  br
-  label for='email' Email: 
-  input type='text' name='email' id='email_input'
-  br
-  input type='submit' id='registration-form-submit' class='submit' value='submit'
+  div class="form-group"
+    label for='username' Username: 
+    input type='text' name='username' id='username_input' class="form-control"
+  div class="form-group"
+    label for='email' Email: 
+    input type='text' name='email' id='email_input' class="form-control"
+  
+  button type='submit' id='registration-form-submit' class='submit' value='submit' class="btn btn-primary" submit

@@ -1,0 +1,19 @@
+h1
+  == "#{@url[:title]}"
+table class="table"
+  tr
+    td Full Url:
+    td #{@url[:full_url]}
+    
+h1
+  == "Analytics"    
+table class="table"
+  thead
+    tr
+      th IP Address
+      th Location
+  tbody
+    - @url[:views].each do |view|
+      tr
+        td #{view[:ip_address]}
+        td #{view[:location]}
