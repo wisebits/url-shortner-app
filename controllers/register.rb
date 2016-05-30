@@ -46,6 +46,11 @@ class UrlShortnerApp < Sinatra::Base
       username: new_user['username'],
       email: new_user['email'],
       password: passwords[:password])
+
+    unless result
+      flash[:error] = "Oops! Something went wrong! Please try registering again"
+    end
+
     
     result ? redirect('/login') : redirect('/register')
   end

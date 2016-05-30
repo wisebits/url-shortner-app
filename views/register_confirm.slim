@@ -1,18 +1,18 @@
-h2 Set Your Password
-table
-  tr
-    td Username:
-    td 
+h1 Set Your Password
+div class="container"
+  div class="row"
+    div class="col-sm-2" Username:
+    div class="col-sm-10"
       == @new_user['username']
-  tr
-    td Email:
-    td 
+  div class="row"
+    div class="col-sm-2" Email:
+    div class="col-sm-10"
       == @new_user['email']
-form action="/register/#{@token_secure}/verify" method='post' id='user-form'
-  label for='password' Password: 
-  input type='password' name='password' id='password_input'
-  br
-  label for='password' Re-enter Password: 
-  input type='password' name='password_confirm' id='password_confirm_input'
-  br
-  input type='submit' id='registration-form-submit' class='submit' value='submit'
+  form action="/register/#{@token_secure}/verify" method='post' id='user-form'
+    div class="form-group"
+      label for='password_input' Password: 
+      input type='password' name='password' id='password_input' class='form-control'
+    div class="form-group"
+      label for='password_confirm_input' Re-enter Password: 
+      input type='password' name='password_confirm' id='password_confirm_input' class='form-control'
+    button type='submit' id='registration-form-submit' class='submit' value='submit' class="btn btn-primary" submit
