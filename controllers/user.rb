@@ -30,7 +30,7 @@ class UrlShortnerApp < Sinatra::Base
       @current_user = auth_user['user']
       session[:auth_token] = auth_user['auth_token']
       session[:current_user] = SecureMessage.encrypt(@current_user)
-      flash[:notice] = "Welcome back #{@current_user['username']}!"
+      flash[:notice] = "Welcome, #{@current_user['username']}!"
       redirect '/'
     else
       flash[:error] = 'Your username or password did not match our records.'

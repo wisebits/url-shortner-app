@@ -46,7 +46,16 @@ class UrlShortnerApp < Sinatra::Base
       username: new_user['username'],
       email: new_user['email'],
       password: passwords[:password])
-    
-    result ? redirect('/login') : redirect('/register')
+
+     # add token too??
+     if result
+      flash[:notice] = "Your account was successfully created! You can now access the service."
+      redirect '/login'
+    else
+      flash[:error] = 'Your account could not be created'
+      redirect '/register'
+    end
+   
+    #result ? redirect('/login') : redirect('/register')
   end
 end
