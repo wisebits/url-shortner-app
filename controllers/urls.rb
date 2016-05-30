@@ -26,8 +26,10 @@ class UrlShortnerApp < Sinatra::Base
     end
   end
 
+  #only if logged in can add new url
   get '/users/:username/new_url' do
-   slim(:new_url) 
+   if @current_user && @current_user['username'] == params[:username]
+    slim(:new_url) 
   end
 
   post '/users/:username/new_url' do
@@ -38,35 +40,16 @@ class UrlShortnerApp < Sinatra::Base
       halt
     end
 
-     new_url = CreateNewUrl.call(validate_url)
-
-    
-    if auth_user
-      @current_user = auth_user['user']
-      session[:auth_token] = auth_user['auth_token']
-      session[:current_user] = SecureMessage.encrypt(@current_user)
-      flash[:notice] = "Welcome, #{@current_user['username']}!"
-      redirect '/'
-    else
-      flash[:error] = 'Your username or password did not match our records.'
-      slim :login
-    end
-
-
 
     if @current_user && @current_user['username'] == params[:username]
-      @url = CreateNewUrl.call(url_id: params[:url_id],
-        auth_token: session[:auth_token])
-      if @url
-        slim(:url)
-      else
-        flash[:error] = 'We cannot find this url in your account'
-        redirect "/users/#{params[:username]}/urls"
-      end
-    else
-      redirect '/login'
-    end
+      new_url = CreateNewUrl.call(validate_url)
 
-    
+      if new_url
+        flash[:notice] = "URL saved successfully"
+        redirect '/'
+      else
+        flash[:error] = 'URL did not save successfully'
+        redirect '/'
+      end
   end
 end
