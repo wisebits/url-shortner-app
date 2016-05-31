@@ -37,17 +37,19 @@ class UrlShortnerApp < Sinatra::Base
 
   #only logged in user should be able to post a new url
   post '/users/:username/new_url' do
-    validate_url = NewURL.call(params)
-    if validate_url.failure?
-      flash[:error] = 'Please ensure you suppy a full URL'
-      redirect '/'
-      halt
-    end
+   # validate_url = NewURL.call(params)
+    #if validate_url.failure?
+     # flash[:error] = 'Please ensure you suppy a full URL'
+     # redirect '/'
+     # halt
+    #end
 
 
     if @current_user && @current_user['username'] == params[:username]
       new_url = CreateNewUrl.call(
-        validate_url,
+        full_url: params[:full_url],
+        title: params[:title],
+        description: params[:description],
         auth_token: session[:auth_token],
         current_user: @current_user['id'])
 
