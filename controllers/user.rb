@@ -24,10 +24,6 @@ class UrlShortnerApp < Sinatra::Base
     end
 
     auth_user = FindAuthenticatedUser.call(credentials)
-    puts ENV['API_HOST']
-    puts 'auth_user: '
-    puts auth_user
-
     
     if auth_user
       @current_user = auth_user['user']
