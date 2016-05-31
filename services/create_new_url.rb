@@ -2,8 +2,9 @@ require 'http'
 
 # Create new URL
 class CreateNewUrl
-  def self.call(full_url:, title:, description:)
-    response = HTTP.post("#{ENV['API_HOST']}/api/v1/users/#{@current_user['id']}/owned_urls/?",
+  def self.call(full_url:, title:, description:, auth_token:, current_user:)
+    response = HTTP.auth("Bearer #{auth_token}")
+                   .post("#{ENV['API_HOST']}/api/v1/users/#{current_user}/owned_urls/?",
       json: {
         full_url: full_url,
         title: title,

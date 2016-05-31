@@ -26,12 +26,16 @@ class UrlShortnerApp < Sinatra::Base
     end
   end
 
-  #only if logged in can add new url
+  #only logged in user shoule be able to see new url page
   get '/users/:username/new_url' do
    if @current_user && @current_user['username'] == params[:username]
-    slim(:new_url) 
+    slim(:new_url)
+   else
+    redirect '/'
+   end
   end
 
+  #only logged in user should be able to post a new url
   post '/users/:username/new_url' do
     validate_url = NewURL.call(params)
     if validate_url.failure?
@@ -42,7 +46,10 @@ class UrlShortnerApp < Sinatra::Base
 
 
     if @current_user && @current_user['username'] == params[:username]
-      new_url = CreateNewUrl.call(validate_url)
+      new_url = CreateNewUrl.call(
+        validate_url,
+        auth_token: session[:auth_token],
+        current_user: @current_user['id'])
 
       if new_url
         flash[:notice] = "URL saved successfully"
@@ -51,5 +58,6 @@ class UrlShortnerApp < Sinatra::Base
         flash[:error] = 'URL did not save successfully'
         redirect '/'
       end
+    end
   end
 end
