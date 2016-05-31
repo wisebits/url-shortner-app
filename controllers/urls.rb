@@ -53,10 +53,10 @@ class UrlShortnerApp < Sinatra::Base
 
       if new_url
         flash[:notice] = "URL saved successfully"
-        redirect '/'
+        redirect "/users/#{params[:username]}/urls"
       else
         flash[:error] = 'URL did not save successfully'
-        redirect '/'
+        redirect "/users/#{params[:username]}/new_url"
       end
     end
   end

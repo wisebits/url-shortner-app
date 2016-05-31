@@ -1,5 +1,5 @@
 p 
-  form method='post' action="/users/{@current_user['username']}/new_url" id='form-new-url'
+  form method='post' action="/users/#{@current_user['username']}/new_url" id='form-new-url'
     div class="form-group"
       label for='input-full-url' Full URL
       input type='text' name='full_url' id='input-full-url' class="form-control"
