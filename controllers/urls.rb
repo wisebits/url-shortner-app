@@ -44,7 +44,6 @@ class UrlShortnerApp < Sinatra::Base
      # halt
     #end
 
-
     if @current_user && @current_user['username'] == params[:username]
       new_url = CreateNewUrl.call(
         full_url: params[:full_url],
