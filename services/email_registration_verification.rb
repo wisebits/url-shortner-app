@@ -11,7 +11,7 @@ class EmailRegistrationVerification
       html_body:  registration_email(token_encrypted))
   end
 
-  private
+  private_class_method
 
   def self.registration_email(token)
     verification_url = "#{ENV['APP_HOST']}/register/#{token}/verify"
