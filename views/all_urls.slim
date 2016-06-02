@@ -1,5 +1,5 @@
 h1 Urls
-a href="/users/#{@current_user['username']}/new_url" class="btn btn-primary" role="button">Add URL</a>
+a href="/users/#{@current_user['username']}/new_url" class="btn btn-primary" role="button" Add URL
 
 table class="table"
   thead
@@ -7,6 +7,7 @@ table class="table"
       th Url name
       th Full URL
       th Short Url
+      th Privileges
   tbody
     - @urls.each do |url|
       tr
@@ -16,3 +17,5 @@ table class="table"
             a href="#{url[:full_url]}" #{url[:full_url]}
             td
               = "#{url[:short_url]}" 
+              td 
+                a href="#" Set Privileges

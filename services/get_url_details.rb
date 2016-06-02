@@ -8,7 +8,7 @@ class GetUrlDetails
     response.code == 200 ? extract_url_details(response.parse) : nil
   end
 
-  private
+  private_class_method
 
   def self.extract_url_details(url_data)
     url = url_data['data']

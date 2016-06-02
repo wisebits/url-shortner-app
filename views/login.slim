@@ -1,10 +1,24 @@
-p 
-  form method='post' action='/login' id='form-login'
-    div class="form-group"
-      label for='input-username' Username
-      input type='text' name='username' id='input-username' class="form-control"
-    div class="form-group"
-      label for='input-password' Password
-      input type='password' name='password' id='input-password' class="form-control"
-    
-    button type='submit' id='button-login' value='login' class="btn btn-primary" login
+/ Fontawesome and Bootstrap-Social for Github buttons
+link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous"
+link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.css"
+div class="row"
+  div class="col-sm-1"
+  div class="col-sm-4"
+    h3 class="text-center" Login
+    form method='post' action='/login' id='form-login'
+      div class="form-group"
+        label for='input-username' Username
+        input type='text' name='username' id='input-username' class="form-control"
+      div class="form-group"
+        label for='input-password' Password
+        input type='password' name='password' id='input-password' class="form-control"
+      
+      button type='submit' id='button-login' value='login' class="btn btn-primary btn-block" login
+  div class="col-sm-2 text-center"
+    h1 or
+  div class="col-sm-4"
+    h3 class="text-center" Login with Github
+    a class="btn-block btn-social btn-lg btn-github" href=@gh_url
+      span class="fa fa-github"
+      == "Github Sign-in"
+  div class="col-sm-1"

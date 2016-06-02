@@ -8,7 +8,7 @@ class GetAllUrls
     response.code == 200 ? extract_urls(response.parse) : nil
   end
 
-  private
+  private_class_method
 
   def self.extract_urls(urls)
     urls['data'].map do |url|
