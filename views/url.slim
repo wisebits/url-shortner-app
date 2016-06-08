@@ -1,9 +1,9 @@
 h1
-  == "#{@url[:title]}"
+  == "#{@url['title']}"
 table class="table"
   tr
     td Full Url:
-    td #{@url[:full_url]}
+    td #{@url['full_url']}
     
 h1
   == "Analytics"    
@@ -13,7 +13,8 @@ table class="table"
       th IP Address
       th Location
   tbody
-    - @url[:views].each do |view|
-      tr
-        td #{view[:ip_address]}
-        td #{view[:location]}
+    - if @url['views']
+      - @url['views'].each do |view|
+        tr
+          td #{view['ip_address']}
+          td #{view['location']}

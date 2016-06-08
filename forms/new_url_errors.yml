@@ -1,0 +1,5 @@
+en:
+  errors:
+    full_url: 'Full Url was not provided'
+    title: 'Please provide title'
+    description: 'Please provide description'
