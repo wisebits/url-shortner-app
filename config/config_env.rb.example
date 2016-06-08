@@ -1,15 +1,15 @@
 config_env :development, :test do
   set 'MSG_KEY', '...'
-
-  set 'API_HOST', 'http://wisebits-url-shortner.herokuapp.com/api/v1'
+  set 'API_HOST', 'https://wisebits-url-shortner.herokuapp.com/api/v1'
   set 'APP_HOST', 'http://localhost:9292'
+  set 'APP_SECRET_KEY', '[Ed25519 secret key]'
 end
 
 config_env :production do
   set 'MSG_KEY', '...'
-
-  set 'API_HOST', 'http://wisebits-url-shortner.herokuapp.com/api/v1'
-  set 'APP_HOST', 'http://url-shortner.herokuapp.com'
+  set 'API_HOST', 'https://wisebits-url-shortner.herokuapp.com/api/v1'
+  set 'APP_HOST', 'https://url-shortner.herokuapp.com'
+  set 'APP_SECRET_KEY', '[Ed25519 secret key]'
 end
 
 config_env do

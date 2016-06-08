@@ -9,13 +9,14 @@ gem 'rack-ssl-enforcer'
 gem 'tux'
 
 gem 'http'
+gem 'rbnacl-libsodium'
 gem 'jose'
+gem 'secure_headers'
 
 gem 'dry-validation'
 gem 'pony'
 
 group :development do
-  gem 'rbnacl-libsodium'
   gem 'rerun'
 end
 
