@@ -11,22 +11,15 @@ class GetUrlDetails
   private_class_method
 
   def self.extract_url_details(url_data)
-    url = url_data['data']
-    views = url_data['relationships']
+    #url = url_data['data']
+    views = url_data['relationships']['views']
 
     all_views = views.map do |view|
-      {
-        id: view['id'],
-        location: view['data']['location'],
-        ip_address: view['data']['ip_address']
-      }
+      { id: view['id'] }.merge(location: view['data'])
     end
 
-    { id: url['id'],
-      full_url: url['data']['full_url'],
-      title: url['data']['title'],
-      description: url['data']['description'],
-      short_url: url['data']['short_url'],
-      views: all_views }
+    { id: url_data['id'], 'views' => views }
+      .merge(url_data['data'])
+      .merge(url_data['relationships'])
   end
 end

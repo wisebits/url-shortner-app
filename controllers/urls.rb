@@ -37,28 +37,30 @@ class UrlShortnerApp < Sinatra::Base
 
   #only logged in user should be able to post a new url
   post '/users/:username/new_url' do
-   # validate_url = NewURL.call(params)
-    #if validate_url.failure?
-     # flash[:error] = 'Please ensure you suppy a full URL'
-     # redirect '/'
-     # halt
-    #end
 
-    if @current_user && @current_user['username'] == params[:username]
-      new_url = CreateNewUrl.call(
-        full_url: params[:full_url],
-        title: params[:title],
-        description: params[:description],
-        auth_token: session[:auth_token],
-        current_user: @current_user['id'])
+    halt_if_incorrect_user(params)
 
-      if new_url
-        flash[:notice] = "URL saved successfully"
-        redirect "/users/#{params[:username]}/urls"
-      else
-        flash[:error] = 'URL did not save successfully'
-        redirect "/users/#{params[:username]}/new_url"
-      end
+    urls_url = "/users/#{@current_user['username']}/urls"
+
+    new_url_data = NewUrl.call(params)
+
+    #if @current_user && @current_user['username'] == params[:username]
+    if new_url_data.failure?
+      flash[:error] = new_url_data.messages.values.join('; ')
+      redirect urls_url
+    else
+      begin
+        new_url = CreateNewUrl.call(
+          auth_token: session[:auth_token],
+          owner: @current_user,
+          new_url: new_url_data.to_h)
+        flash[:notice] = "Your new url has been created! Now share your url"
+        redirect urls_url + "/#{new_url['id']}"
+      rescue => e
+        flash[:error] = "Oops! Something went wrong!"
+        logger.error "New Url FAIL: #{e}"
+        redirect "users/#{@current_user['username']}/urls"
+      end 
     end
   end
 end

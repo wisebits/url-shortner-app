@@ -2,6 +2,13 @@ require 'sinatra'
 
 # User Authentication, Registration, and Authorization
 class UrlShortnerApp < Sinatra::Base
+  def login_user(authorized_user)
+    @current_user = authorized_user['user']
+    session[:auth_token] = authorized_user['auth_token']
+    session[:current_user] = SecureMessage.encrypt(@current_user)
+    flash[:notice] = "Welcome back #{@current_user['username']}"
+  end
+
   get '/login/?' do
     @gh_url = HTTP.get("#{ENV['API_HOST']}/github_sso_url").parse['url']
     slim :login
@@ -18,11 +25,8 @@ class UrlShortnerApp < Sinatra::Base
     auth_user = FindAuthenticatedUser.call(credentials)
 
     if auth_user
-      @current_user = auth_user['user']
-      session[:auth_token] = auth_user['auth_token']
-      session[:current_user] = SecureMessage.encrypt(@current_user)
-      flash[:notice] = "Welcome back #{@current_user['username']}"
-      redirect '/'
+      login_user(auth_user)
+      redirect "/users/#{@current_user['username']}/urls"
     else
       flash[:error] = 'Your username or password did not match our records'
       redirect :login
@@ -39,15 +43,8 @@ class UrlShortnerApp < Sinatra::Base
   get '/github_callback/?' do
     begin
       sso_user = RetrieveGithubUser.call(params['code'])
-
-      # TODO: DRY out following lines (also in /login controller)
-      @current_user = sso_user['user']
-      session[:auth_token] = sso_user['auth_token']
-      session[:current_user] = SecureMessage.encrypt(@current_user)
-      flash[:notice] = "Welcome back #{@current_user['username']}"
-      redirect '/'
-
-      redirect '/urls'
+      login_user(sso_user)
+      redirect "/users/#{@current_user['username']}/urls"
     rescue => e
       flash[:error] = 'Could not sign in using Github'
       puts "RESCUE: #{e}"

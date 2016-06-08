@@ -1,0 +1,6 @@
+p 
+  form method='post' action="/users/#{@current_user['username']}/urls/#{@url_id}/share" id='form-new-url'
+    div class="form-group"
+      label for='input-full-url' Email
+      input type='text' name='email' id='input-email' class="form-control"   
+    button type='submit' id='button-new-url' value='Add URL' class="btn btn-primary" Send Invitation

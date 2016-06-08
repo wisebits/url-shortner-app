@@ -1,2 +1,2 @@
 require_relative 'user'
-require_relative 'url'
+require_relative 'new_url'

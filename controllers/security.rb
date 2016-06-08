@@ -4,7 +4,7 @@ require 'rack/ssl-enforcer'
 require 'secure_headers'
 
 # Security settings for Url Shortner
-class ShareConfigurationsApp < Sinatra::Base
+class UrlShortnerApp < Sinatra::Base
   disable :protection  # required for Rack::Protection middleware below
   use Rack::Session::Cookie, secret: ENV['MSG_KEY'],
                              expire_after: 60 * 60 * 24 * 7
