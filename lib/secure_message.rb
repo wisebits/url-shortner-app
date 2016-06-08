@@ -3,7 +3,7 @@ require 'jose'
 
 # Utility class to encrypt and decrypt messages from this application
 #   - used for tokens: cookies, email
-#   - requires: ENV['MSG_KEY']
+#   - requires: ENV['MSG_KEY'], ENV['APP_SECRET_KEY']
 class SecureMessage
   def self.encrypt(message)
     str = message.to_json
@@ -17,5 +17,11 @@ class SecureMessage
     JSON.load(plain)
   rescue
     raise 'INVALID ENCRYPTED MESSAGE'
+  end
+
+  def self.sign(message_object)
+    app_secret_key = JOSE::JWK.from_okp(
+      [:Ed25519, Base64.decode64(ENV['APP_SECRET_KEY'])])
+    app_secret_key.sign(message_object.to_json).compact
   end
 end

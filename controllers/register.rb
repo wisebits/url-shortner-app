@@ -41,22 +41,17 @@ class UrlShortnerApp < Sinatra::Base
     end
 
     new_user = SecureMessage.decrypt(params[:token_secure])  
-
     result = CreateVerifiedUser.call(
       username: new_user['username'],
       email: new_user['email'],
       password: passwords[:password])
 
      if result
-      flash[:notice] = "Your account was successfully created! You can now access the service."
-      redirect '/login'
+      flash[:notice] = "Please login with your username and password"
+      redirect ('/login')
     else
-      flash[:error] = 'Your account could not be created'
-      redirect '/register'
+      flash[:error] = 'Your account could not be created! Please try again'
+      redirect ('/register')
     end
-    #unless result
-     # flash[:error] = "Oops! Something went wrong! Please try registering again"
-    #end
-   # result ? redirect('/login') : redirect('/register')
   end
 end
