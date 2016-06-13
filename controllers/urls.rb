@@ -8,7 +8,7 @@ class UrlShortnerApp < Sinatra::Base
         auth_token: session[:auth_token])
     end
 
-    @urls ? slim(:all_urls) :redirect('/login')
+    @urls ? slim(:all_urls) : redirect('/')
   end
 
   get '/users/:username/urls/:url_id' do
@@ -22,7 +22,7 @@ class UrlShortnerApp < Sinatra::Base
         redirect "/users/#{params[:username]}/urls"
       end
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
@@ -33,6 +33,25 @@ class UrlShortnerApp < Sinatra::Base
    else
     redirect '/'
    end
+  end
+  
+  #get url to share
+  get 'users/:username/urls/:url_id/share' do
+    if @current_user && @current_user['username'] == params[:username]
+     @url_id = params[:url_id]
+     @url_id ? slim(:share) : redirect('/')
+    else
+     redirect '/'
+    end
+  end
+
+  post 'users/:username/urls/:url_id/share' do
+    #here send invite to email to view URL
+    #check if user exists based on email
+    # if exists no need to create a new account, just add permission
+    # if don't exist, add user account and add permission for url
+    # can also check if url already accessible by user before even sending email
+
   end
 
   #only logged in user should be able to post a new url
@@ -54,11 +73,11 @@ class UrlShortnerApp < Sinatra::Base
           auth_token: session[:auth_token],
           owner: @current_user,
           new_url: new_url_data.to_h)
-        flash[:notice] = "Your new url has been created! Now share your url"
+        flash[:notice] = "Your URL has been saved!"
         redirect urls_url + "/#{new_url['id']}"
       rescue => e
         flash[:error] = "Oops! Something went wrong!"
-        logger.error "New Url FAIL: #{e}"
+        logger.error "New URL FAIL: #{e}"
         redirect "users/#{@current_user['username']}/urls"
       end 
     end

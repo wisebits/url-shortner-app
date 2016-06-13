@@ -4,9 +4,9 @@ a href="/users/#{@current_user['username']}/new_url" class="btn btn-primary" rol
 table class="table"
   thead
     tr
-      th Url name
+      th URL Name
       th Full URL
-      th Short Url
+      th Shortened Secure URL
       th Privileges
   tbody
     - @urls.each do |url|
@@ -18,4 +18,4 @@ table class="table"
             td
               = "#{url[:short_url]}" 
               td 
-                a href="#" Set Privileges
+                a href="users/#{@current_user['username']}/urls/#{url[:id]}/share" Share URL

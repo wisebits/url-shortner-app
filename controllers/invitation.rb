@@ -5,6 +5,8 @@ class UrlShortnerApp < Sinatra::Base
     @token_secure = params[:token_secure]
     @new_user = SecureMessage.decrypt(@token_secure)
 
+    # if user alreay exists go to login page, if not go to register confirm to allow user to create account
+
     slim :register_confirm
   end
 
