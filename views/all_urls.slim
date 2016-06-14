@@ -1,21 +1,45 @@
-h1 Urls
-a href="/users/#{@current_user['username']}/new_url" class="btn btn-primary" role="button" Add URL
+div class="row" style="vertical-align: bottom;"
+  div class="col-md-9"
+    h3 All Urls
+  div class="col-md-3"
+    div class="pull-right"
+      button type="button" class="btn btn-success" data-toggle="modal" data-target="#newUrlModal" 
+        i.fa.fa-plus
+        = " New url"
 
-table class="table"
-  thead
-    tr
-      th URL Name
-      th Full URL
-      th Shortened Secure URL
-      th Privileges
-  tbody
-    - @urls.each do |url|
-      tr
-        td 
-          a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
-          td 
-            a href="#{url[:full_url]}" #{url[:full_url]}
-            td
-              = "#{url[:short_url]}" 
+div class="row" style="vertical-align: bottom;"
+  div clas="col-md-12"
+    table class="table"
+      thead
+        tr
+          th 
+            i.fa.fa-info
+            = " URL name"
+          th 
+            i.fa.fa-external-link-square
+            = " Full URL"
+          th 
+            i.fa.fa-link
+            = " Short URL"
+          th
+            i.fa.fa-users
+            = " Permissions" 
+          th 
+            i.fa.fa-eye
+            = " Views"
+      tbody
+        - @urls.each do |url|
+          tr
+            td 
+              a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
               td 
-                a href="users/#{@current_user['username']}/urls/#{url[:id]}/share" Share URL
+                a href="#{url[:full_url]}" #{url[:full_url]}
+                td
+                  = "#{url[:short_url]}"
+                  td
+                    = "#{url[:permissions]}"
+                    td
+                      = "#{url[:views]}"
+
+/ include partials
+include :new_url_partial

@@ -1,0 +1,12 @@
+div id="newPermissionModal" class="modal fade" role="dialog"
+  div class="modal-dialog"
+    div class="modal-content"
+      div class="modal-header"
+        h4 Add Permission
+      div class="modal-body"
+        form role="form" action="/users/#{@current_user['username']}/urls/#{@url[:id]}/viewers" method='post' id='new-configuration-form'
+          div class="form-group"
+            label for='email_input' Email address:
+            input type='text' name='email' id='email_input' class="form-control" placeholder="Email of collaborator"
+          button type='submit' id='registration-form-submit' class='submit' value='submit' class="btn btn-success" Add
+          button type="button" class="btn btn-default" data-dismiss="modal" Cancel
