@@ -1,20 +1,92 @@
 h1
   == "#{@url['title']}"
-table class="table"
-  tr
-    td Full Url:
-    td #{@url['full_url']}
-    
-h1
-  == "Analytics"    
-table class="table"
-  thead
-    tr
-      th IP Address
-      th Location
-  tbody
-    - if @url['views']
-      - @url['views'].each do |view|
-        tr
-          td #{view['ip_address']}
-          td #{view['location']}
+dl
+  div class="row"
+    div class="col-xs-3"
+      dt Full Url:
+    div class="col-xs-9"
+      dd class="blockquote"
+        a href="#{@url['full_url']}" #{@url['full_url']}
+  div class="row"
+    div class="col-xs-3"
+      dt Short Url:
+    div class="col-xs-9"
+      dd class="blockquote"
+        a href="#{@url['id']}" #{@url['short_url']}
+  br
+
+  div clas="row"
+    div class="panel panel-default"
+      div class="panel-heading" Viewers
+      div class="panel-body"
+        - if @url['viewers'].empty?
+          span class="small" No permission given yet!
+        ul class="list-group"
+          - @url['viewers'].each do |viewer|
+            li class="list-group-item clearfix"
+              '  #{viewer['username']}
+              - unless [@url['owner']['id'], @current_user['id']].include? viewer['id']
+                span class="pull-right"
+                  button type="button" class="btn btn-xs btn-default"
+                    span class="glyphicon glyphicon-remove"
+        - if @url['owner']['id'] == @current_user['id']
+          button type="button" class="btn btn-success" data-toggle="modal" data-target="#newPermissionModal" 
+            i.fa.fa-plus
+            = " Add Permission"
+
+  div clas="row"
+    div class="panel panel-default"
+      div class="panel-heading" Analytics
+      div class="panel-body"
+        - if @url['views']
+          div id="views"
+
+          javascript:
+            var url_data = #{@statistics}
+            $(function(){
+              $('#views').highcharts({
+                chart: {
+                  type: 'spline'
+                },
+                title: {
+                  text: "Total Views"
+                },
+                subtitle: {
+                  text: "Timeline"
+                },
+                xAxis: {
+                  type: 'datetime',
+                  dateTimeLabelFormats: {
+                    month:'%e. %b',
+                    year: '%b'
+                  },
+                  title: {
+                    text: 'Date'
+                  }
+                },
+                yAxis: {
+                  title: {
+                    text: "No. Views"
+                  },
+                  min: 0
+                },
+                tooltip: {
+                },
+                plotOptions: {
+                  spline: {
+                    marker: {
+                      enabled: true
+                    }
+                  }
+                },
+                series: [{
+                    name: 'Traffic',
+                    data: url_data,
+                    color: '#48D1CC'
+                }]
+              });
+            });
+        - else
+          = "No views yet! Share your url with others"
+/ include partials here
+include :permission_new_partial

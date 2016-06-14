@@ -11,7 +11,6 @@ class GetUrlDetails
   private_class_method
 
   def self.extract_url_details(url_data)
-    #url = url_data['data']
     views = url_data['relationships']['views']
 
     all_views = views.map do |view|

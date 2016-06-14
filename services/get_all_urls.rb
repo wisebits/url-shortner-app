@@ -17,7 +17,9 @@ class GetAllUrls
         full_url: url['data']['full_url'],
         title: url['data']['title'],
         description: url['data']['description'],
-        short_url: url['data']['short_url']
+        short_url: url['data']['short_url'],
+        permissions: url['relationships']['viewers'].count,
+        views: url['relationships']['views'].count
       }
     end
   end
