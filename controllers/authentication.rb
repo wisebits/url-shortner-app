@@ -9,9 +9,14 @@ class UrlShortnerApp < Sinatra::Base
     flash[:notice] = "Welcome back #{@current_user['username']}"
   end
 
+  # if already logged in should not be seeing login page
   get '/login/?' do
     @gh_url = HTTP.get("#{ENV['API_HOST']}/github_sso_url").parse['url']
-    slim :login
+    if @current_user
+     redirect '/'
+    else
+     slim(:login)
+    end
   end
 
   post '/login/?' do

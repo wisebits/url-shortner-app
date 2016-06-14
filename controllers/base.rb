@@ -22,11 +22,12 @@ class UrlShortnerApp < Sinatra::Base
 
   def halt_if_incorrect_user(params)
     return true if current_user?(params)
-    flash[:error] = 'You used the wrong account for this request'
+    flash[:error] = 'You do not have privileges to access this page!'
     redirect '/login'
     halt
   end
 
+  # public route
   get '/' do
     slim :home
   end

@@ -5,7 +5,11 @@ class UrlShortnerApp < Sinatra::Base
     @token_secure = params[:token_secure]
     @new_user = SecureMessage.decrypt(@token_secure)
 
-    # if user alreay exists go to login page, if not go to register confirm to allow user to create account
+    #check if user exists based on email, add service to check if user exists based on email
+    # if exists no need to create a new account, just add permission
+    # if don't exist, add user account and add permission for url
+    # can also check if url already accessible by user before even sending email
+
 
     slim :register_confirm
   end

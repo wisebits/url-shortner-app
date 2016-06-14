@@ -3,7 +3,7 @@ require 'sinatra'
 # Base class for UrlShortner Web Application
 class UrlShortnerApp < Sinatra::Base
   get '/users/:username/urls' do
-    if @current_user && @current_user['username'] == params[:username]
+    if current_user?(params)
       @urls = GetAllUrls.call(current_user: @current_user,
         auth_token: session[:auth_token])
     end
@@ -12,7 +12,7 @@ class UrlShortnerApp < Sinatra::Base
   end
 
   get '/users/:username/urls/:url_id' do
-    if @current_user && @current_user['username'] == params[:username]
+    if current_user?(params)
       @url = GetUrlDetails.call(url_id: params[:url_id],
         auth_token: session[:auth_token])
       if @url
@@ -28,7 +28,7 @@ class UrlShortnerApp < Sinatra::Base
 
   #only logged in user shoule be able to see new url page
   get '/users/:username/new_url' do
-   if @current_user && @current_user['username'] == params[:username]
+   if current_user?(params)
     slim(:new_url)
    else
     redirect '/'
@@ -37,7 +37,7 @@ class UrlShortnerApp < Sinatra::Base
   
   #get url to share
   get 'users/:username/urls/:url_id/share' do
-    if @current_user && @current_user['username'] == params[:username]
+    if current_user?(params)
      @url_id = params[:url_id]
      @url_id ? slim(:share) : redirect('/')
     else
@@ -46,11 +46,7 @@ class UrlShortnerApp < Sinatra::Base
   end
 
   post 'users/:username/urls/:url_id/share' do
-    #here send invite to email to view URL
-    #check if user exists based on email
-    # if exists no need to create a new account, just add permission
-    # if don't exist, add user account and add permission for url
-    # can also check if url already accessible by user before even sending email
+
 
   end
 
