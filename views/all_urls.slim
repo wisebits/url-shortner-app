@@ -1,6 +1,7 @@
 div class="row" style="vertical-align: bottom;"
   div class="col-md-9"
-    h3 All Urls
+    h3 All Urls 
+    h5 * Urls you own
   div class="col-md-3"
     div class="pull-right"
       button type="button" class="btn btn-success" data-toggle="modal" data-target="#newUrlModal" 
@@ -30,8 +31,14 @@ div class="row" style="vertical-align: bottom;"
       tbody
         - @urls.each do |url|
           tr
-            td 
-              a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
+            td
+              - if url[:owner_id] == @current_user['id']
+
+                a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
+                = " "
+                i.fa.fa-asterisk                
+              - else
+                a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
               td 
                 a href="#{url[:full_url]}" target="_blank" #{url[:full_url]}
                 td

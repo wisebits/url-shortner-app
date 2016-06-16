@@ -14,6 +14,7 @@ class GetAllUrls
     urls['data'].map do |url|
       {
         id: url['id'],
+        owner_id: url['relationships']['owner']['id'],
         full_url: url['data']['full_url'],
         title: url['data']['title'],
         description: url['data']['description'],
