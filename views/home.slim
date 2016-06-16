@@ -3,6 +3,9 @@ div class="container"
   h2 Welcome to Wisebits URL Shortner and Sharing Service
   p The Wisebits team provides you with a free and secure service that allows you to generate and share shortened versions of existing URLs. We also offer analytic services to provide you with insights into the traffic information of your URLs.
 
-  a href="/login" Already have an account?
-  br
-  a href="/register" Create an account to get started
+  - if @current_user
+    Thank you for using our service!
+  - else
+    a href="/login" Already have an account? 
+    br
+    a href="/register" Create an account to get started
