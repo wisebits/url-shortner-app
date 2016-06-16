@@ -6,20 +6,25 @@ dl
       dt Full Url:
     div class="col-xs-9"
       dd class="blockquote"
-        a href="#{@url['full_url']}" #{@url['full_url']}
+        a href="#{@url['full_url']}" target= "_blank" #{@url['full_url']}
   div class="row"
     div class="col-xs-3"
       dt Short Url:
     div class="col-xs-9"
       dd class="blockquote"
-        a href="#{@url['id']}" #{@url['short_url']}
+        a href="#{@url['short_url']}" target= "_blank" #{@url['short_url']}
+  div class="row"
+    div class="col-xs-3"
+      dt Owner:
+    div class="col-xs-9"
+      dd class="blockquote"
+        = "#{@url['owner']['username']}"
   br
 
   div clas="row"
     div class="panel panel-default"
       div class="panel-heading" Viewers
       div class="panel-body"
-        = @url['viewers']
         - if @url['viewers'].empty?
           span class="small" No permission given yet!
         ul class="list-group"
