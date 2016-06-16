@@ -30,6 +30,19 @@ class UrlShortnerApp < Sinatra::Base
     end
   end
 
+  # redirect short_url
+  get '/u/*' do
+    if @current_user
+      # check if url exist by using the short_url
+      attribute = params['splat'][0]
+      @url = GetUrlDetailsByShorturl.call(shorturl: attribute,
+        auth_token: session[:auth_token])
+      redirect (@url)
+    else
+      redirect '/'
+    end
+  end
+
   # Add permmission to view for other user
   post '/users/:username/urls/:url_id/viewers/?' do
     halt_if_incorrect_user(params)

@@ -33,9 +33,9 @@ div class="row" style="vertical-align: bottom;"
             td 
               a href="/users/#{@current_user['username']}/urls/#{url[:id]}" #{url[:title]}
               td 
-                a href="#{url[:full_url]}" #{url[:full_url]}
+                a href="#{url[:full_url]}" target="_blank" #{url[:full_url]}
                 td
-                  = "#{url[:short_url]}"
+                  a href="#{url[:short_url]}" target="_blank" #{url[:short_url]}
                   td
                     = "#{url[:permissions]}"
                     td
